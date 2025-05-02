@@ -9,6 +9,47 @@
   <link rel="stylesheet" href="mediaqueries.css" />
   <link rel="icon" type="image/x-icon" href="Images/favicon.ico" />
 </head>
+<style>
+  .html-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  .html-popup-content {
+    position: relative;
+    width: 90%;
+    max-width: 700px;
+    height: 80vh;
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.3);
+  }
+
+  .html-popup-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+  }
+
+  .popup-close {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+    background: transparent;
+    font-size: 1.5rem;
+    border: none;
+    cursor: pointer;
+  }
+</style>
 
 <body>
   <!-- nav bar -->
@@ -31,11 +72,12 @@
             </li> -->
 
           <li>
-            <a href="#" class="hover-link primary-button">Log UP/IN</a>
+            <a href="login.html" class="google-btn hover-link primary-button" >Log
+              UP/IN</a>
           </li>
         </ul>
       </div>
-      <a href="#" class="nav-toggle hover-link" id="nav-toggle"><i class="fa-solid fa-bars"></i></a>
+      <a  class="nav-toggle hover-link" id="nav-toggle"><i class="fa-solid fa-bars"></i></a>
     </div>
   </nav>
   <!-- header  -->
@@ -48,7 +90,7 @@
           integration.
         </p>
         <br>
-        <a href="#" class="primary-button"> Get started</a>
+        <a href="login.html" class="google-btn primary-button"  > Get started</a>
         <!-- <a href="#" class="secondary-button">Download Brochure</a> -->
       </div>
       <div class="header-right">
@@ -221,7 +263,15 @@
     <i class="fa-solid fa-arrow-up scroll-up-icon"></i>
   </a>
   <script src="https://kit.fontawesome.com/c3ca1814da.js" crossorigin="anonymous"></script>
-  <script src="script.js"></script>
+  <script src="script.js">
+    <div id="htmlPopup" class="html-popup-overlay">
+      <div class="html-popup-content">
+        <button class="popup-close" onclick="closeHtmlPopup()">✖</button>
+        <iframe id="popupFrame" src="" frameborder="0"></iframe>
+      </div>
+    </div>
+
+  </script>
 </body>
 
 </html>

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review Faster - Login</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/60/60525.png" type="image/png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: #f4f8fb;
+      color: #333;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .header img {
+      width: 80px;
+      margin-bottom: 10px;
+    }
+
+    .header h1 {
+      font-size: 26px;
+      color: #007BFF;
+    }
+
+    .form-container {
+      display: none;
+    }
+
+    .form-container.active {
+      display: block;
+    }
+
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    .toggle-link {
+      text-align: center;
+      margin-top: 15px;
+    }
+
+    .toggle-link a {
+      color: #007BFF;
+      text-decoration: none;
+      font-size: 14px;
+    }
+
+    .toggle-link a:hover {
+      text-decoration: underline;
+    }
+
+    .google-btn {
+      background-color: #db4437;
+      color: white;
+      padding: 12px;
+      border: none;
+      border-radius: 6px;
+      font-size: 15px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+    }
+
+    .google-btn i {
+      margin-right: 8px;
+    }
+
+    .password-requirements {
+      font-size: 0.9rem;
+      background: #f8f8f8;
+      padding: 10px;
+      border-radius: 6px;
+      margin-bottom: 15px;
+    }
+
+    .popup, .overlay {
+      display: none;
+    }
+
+    .popup.show, .overlay.show {
+      display: block;
+    }
+
+    .popup {
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      z-index: 1001;
+      text-align: center;
+    }
+
+    .popup.success { border: 2px solid #27ae60; color: #27ae60; }
+    .popup.error { border: 2px solid #e74c3c; color: #e74c3c; }
+
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 1000;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="mainlogo.png" alt="Review Faster" />
+      <h1>Review Faster</h1>
+    </div>
+
+    <!-- Login Form -->
+    <div class="form-container active" id="loginForm">
+      <h2>Login</h2>
+      <form id="loginFormElement">
+        <input type="email" id="loginUserId" placeholder="Enter Email" required />
+        <input type="password" id="loginPassword" placeholder="Enter Password" required />
+        <button type="submit">Login</button>
+      </form>
+      <div style="margin-top: 15px;">
+        <button type="button" class="google-btn" onclick="signInWithGoogle()">
+          <i class="fab fa-google"></i> Sign in with Google
+        </button>
+      </div>
+      <div class="toggle-link">
+        <a href="#register">Not registered? Register here</a><br />
+        <a href="#forgot">Forgot password?</a>
+        <a href="hom.html">home</a>
+      </div>
+    </div>
+
+    <!-- Register Form -->
+    <div class="form-container" id="registerForm">
+      <h2>Register</h2>
+      <form id="registerFormElement">
+        <input type="text" id="registerBusinessName" placeholder="Business Name" required />
+        <select id="registerBusinessType" required>
+          <option value="">Select Business Type</option>
+          <option value="Salon">Salon</option>
+          <option value="Gym">Gym</option>
+          <option value="Retail">Retail Store</option>
+          <option value="Restaurant">Restaurant</option>
+          <option value="Other">Other</option>
+        </select>
+        <input type="text" id="customBusinessType" placeholder="Enter business type" style="display:none;" />
+        <input type="email" id="registerEmail" placeholder="Business Email" required />
+        <input type="url" id="registerReviewUrl" placeholder="Google Review URL" required />
+        <input type="password" id="registerPassword" placeholder="Password" required />
+        <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required />
+        <div class="password-requirements" id="passwordRequirements" style="display:none;">
+          Must be at least 8 chars, include a number, letter & special character.
+        </div>
+        <button type="submit">Register Business</button>
+      </form>
+      <div class="toggle-link">
+        <a href="#login">Already registered? Login here</a>
+      </div>
+    </div>
+
+    <!-- Forgot Password -->
+    <div class="form-container" id="forgotForm">
+      <h2>Forgot Password</h2>
+      <form id="forgotPasswordFormElement">
+        <input type="email" id="forgotEmail" placeholder="Enter your Email" required />
+        <button type="submit">Reset Password</button>
+      </form>
+      <div class="toggle-link">
+        <a href="#login">Back to Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Popup & Overlay -->
+  <div class="overlay" id="overlay"></div>
+  <div class="popup" id="popup">
+    <h3 id="popupTitle">Success!</h3>
+    <p id="popupMessage">You have logged in.</p>
+    <button onclick="closePopup()">OK</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.1/firebase-auth-compat.js"></script>
+
+  <script>
+    // Firebase Configuration (replace with your actual config)
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_AUTH_DOMAIN",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    function signInWithGoogle() {
+      auth.signInWithPopup(provider)
+        .then((result) => {
+          const user = result.user;
+          showPopup("Welcome", `Logged in as ${user.displayName}`, true, true);
+        })
+        .catch((error) => {
+          showPopup("Error", error.message, false);
+        });
+    }
+
+    function showPopup(title, message, isSuccess = true, redirect = false) {
+      document.getElementById('popupTitle').textContent = title;
+      document.getElementById('popupMessage').textContent = message;
+      document.getElementById('popup').className = `popup ${isSuccess ? 'success' : 'error'} show`;
+      document.getElementById('overlay').classList.add('show');
+      if (redirect) {
+        setTimeout(() => {
+          window.location.href = "welcome.html";
+        }, 2000);
+      }
+    }
+
+    function closePopup() {
+      document.getElementById('popup').classList.remove('show');
+      document.getElementById('overlay').classList.remove('show');
+    }
+
+    document.getElementById('registerBusinessType').addEventListener('change', function () {
+      const customField = document.getElementById('customBusinessType');
+      customField.style.display = this.value === 'Other' ? 'block' : 'none';
+      customField.required = this.value === 'Other';
+    });
+
+    // Form toggling
+    function toggleForms() {
+      const hash = window.location.hash || '#login';
+      ['loginForm', 'registerForm', 'forgotForm'].forEach(id => {
+        document.getElementById(id).classList.remove('active');
+      });
+      if (hash === '#register') {
+        document.getElementById('registerForm').classList.add('active');
+      } else if (hash === '#forgot') {
+        document.getElementById('forgotForm').classList.add('active');
+      } else {
+        document.getElementById('loginForm').classList.add('active');
+      }
+    }
+
+    window.addEventListener('hashchange', toggleForms);
+    window.addEventListener('DOMContentLoaded', toggleForms);
+  </script>
+</body>
+</html>

@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Review_Faster - Powered by addinfi</title>
+  <link rel="stylesheet" href="hom.css" />
+  <link rel="stylesheet" href="credit.css" />
+  <link rel="stylesheet" href="mediaqueries.css" />
+  <link rel="icon" type="image/x-icon" href="Images/favicon.ico" />
+</head>
+<style>.toggle-wrapper {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+  }
+  
+  .toggle-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+  }
+  
+  .toggle-label input {
+    display: none;
+  }
+  
+  .toggle-slider {
+    width: 50px;
+    height: 24px;
+    background-color: #ccc;
+    border-radius: 30px;
+    position: relative;
+    transition: background 0.3s ease;
+  }
+  
+  .toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    left: 2px;
+    top: 2px;
+    background-color: white;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+  }
+  
+  .toggle-label input:checked + .toggle-slider {
+    background-color: #1976d2;
+  }
+  
+  .toggle-label input:checked + .toggle-slider::before {
+    transform: translateX(26px);
+  }
+  
+  .toggle-text {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  /* Hide form initially */
+  .customer-form.hidden {
+    display: none;
+  }
+  
+  /* WhatsApp Button */
+  .whatsapp-btn {
+    margin-top: 10px;
+    padding: 10px 16px;
+    background-color: #159f0e;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .whatsapp-btn i {
+    margin-right: 6px;
+  }
+  .toggle-wrapper.right-align {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+
+    .html-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.html-popup-content {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  position: relative;
+  text-align: center;
+}
+
+.popup-close {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  font-size: 1.2rem;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.credit-options button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  font-size: 1rem;
+  background-color: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.credit-options button:hover {
+  background-color: #0d47a1;
+}
+
+  </style>
+<body>
+<nav id="home">
+    <div class="container main-nav flex">
+      <a href="#" class="company-logo">
+        <span>Review Faster</span>
+      </a>
+      <div class="nav-links" id="nav-links">
+        <ul class="flex">
+          <button class="navbar-credits" onclick="openCreditsPopup()">
+            <i class="fas fa-coins"></i> <span id="creditCount">50</span> Credits
+          </button>
+          
+          
+          <li>
+            <a href="#" class="hover-link">Home</a>
+          </li>
+          <li>
+            <a href="profile.html" class="hover-link">Profile</a>
+          </li>
+
+          <!-- <li>
+              <a href="#portfolio" class="hover-link">Portfolio</a>
+            </li> -->
+
+          <li>
+            <button class="hover-link primary-button border: none" onclick="logout()"
+                style="background: #dc3545;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </li>
+        </ul>
+      </div>
+      <a href="#" class="nav-toggle hover-link" id="nav-toggle"><i class="fa-solid fa-bars"></i></a>
+    </div>
+
+<!--  Form -->
+<div class="form_container" style="margin-top: 80px;">
+    <h1>Review Faster</h1>
+    <h2> - Powered by Addinfi</h2>
+
+    <form id="reviewForm" style="margin-top: 9%; position: relative;" onsubmit="return false;">
+        <div class="toggle-wrapper right-align">
+            <label class="toggle-label">
+              <input type="checkbox" id="customerToggle" onchange="toggleCustomerForm()" />
+              <span class="toggle-slider"></span>
+              <span class="toggle-text">Send Greeting</span>
+            </label>
+          </div>
+          <div class="form-group">
+          <label for="whatsapp"><strong>WhatsApp Number*</strong></label>
+              <input type="tel" id="whatsapp" required pattern="\d{10,}" placeholder="Enter WhatsApp Number"
+                title="Please enter at least 10 digits" />
+          <div id="customerForm" class="customer-form hidden">
+            
+              <button type="button" class="whatsapp-btn" onclick="sendGreeting()">
+                <i class="fab fa-whatsapp"></i> Send Greeting
+              </button>
+            </div>
+          </div>
+        <!-- <div class="form-group">
+            <label for="doctorName" style="font-weight: bold;">Doctor Name (optional):</label>
+            <input type="text" id="doctorName" name="doctorName" placeholder="Dr. Smith" />
+        </div> -->
+        <div class="form-group">
+            <label for="service" style="font-weight: bold;">Service Taken (required):</label>
+            <input type="text" id="service" name="service" required placeholder="E.g. Cardiac Consultation" />
+        </div>
+        <div class="form-group">
+            <label for="keywords" style="font-weight: bold;">Keywords (optional)</label>
+            <input type="text" id="keywords" placeholder="E.g. Dr. Rathi., best Cardiologist, etc..." />
+        </div>
+        <div class="form-group">
+            <label for="language" style="font-weight: bold; margin-right: 10px;">Select Review Language:</label>
+            <select id="language" style="padding: 8px; border-radius: 6px; border: 1px solid #ccc;">
+                <option value="english" selected>English</option>
+                <option value="hindi">Hindi</option>
+                <option value="marathi">Marathi</option>
+                <option value="hinglish">Hinglish</option>
+            </select>
+            <button id="generateBtn" style="font-family: sans-serif;"> <i class="fas fa-sync-alt"
+                    style="margin-right: 6px;"></i> Generate Reviews</button>
+        </div>
+        <div id="spinner"
+            style="display:none; text-align:center; color:#007BFF; font-weight:500; margin-top: 10px;">
+            ⏳ Generating reviews...
+        </div>
+
+    </form>
+    <div id="reviews" class="review-list" style="display: flexbox; justify-content: center;"></div>
+    <div style="display: flex; justify-content: center; align-items: center; gap: 12px; flex-wrap: wrap;">
+        <span>
+            <button type="button" id="share_review"
+                style="text-align:center; display: none;  background-color:#159f0e; font-weight:500;"
+                onclick="sendreview()"> <i class="fab fa-whatsapp"></i> send review</button></span>
+        <span>
+            <button onclick="showConfirmModal()"><i class="fas fa-location-arrow"></i> Send Review
+                Page</button></span>
+        <!-- <span>
+            <button onclick="saveCustomerData()" style="background-color: #28a745;">
+                <i class="fas fa-user-plus"></i> Add Customer
+            </button>
+        </span> -->
+    </div>
+</div>
+
+
+<footer>
+    <div class="container flex subfooter-container">
+      <a href="#" class="hover-link">Privacy Policy</a>
+      <a href="#" class="hover-link">Terms & Condition</a>
+      <a href="#" class="hover-link copyright">All rights reserved copyright @reviewsfaster.com</a>
+      <!-- <a href="#" class="hover-link"><i class="fa-brands fa-linkedin"></i></a> -->
+      <!-- <a href="#" class="hover-link"><i class="fa-brands fa-square-instagram"></i></a> -->
+    </div>
+  </footer>
+
+  <!-- scroll to top -->
+  <a href="#home" class="scrollup" id="scroll-up">
+    <i class="fa-solid fa-arrow-up scroll-up-icon"></i>
+  </a>
+  <script src="https://kit.fontawesome.com/c3ca1814da.js" crossorigin="anonymous"></script>
+  <script src="hom.js"></script>
+  <script src="credit.js"></script>
+
+  <div id="buyCreditsPopup" class="html-popup-overlay">
+    <div class="html-popup-content">
+      <button class="popup-close" onclick="closeCreditsPopup()">✖</button>
+      <h2>Buy Credits</h2>
+      <p>Select a credit pack:</p>
+      <div class="credit-options">
+        <button onclick="buyCredits(50)">Buy 50 Credits - ₹49</button>
+        <button onclick="buyCredits(100)">Buy 100 Credits - ₹89</button>
+        <button onclick="buyCredits(200)">Buy 200 Credits - ₹149</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    function openCreditsPopup() {
+        document.getElementById('buyCreditsPopup').style.display = 'flex';
+      }
+      
+      function closeCreditsPopup() {
+        document.getElementById('buyCreditsPopup').style.display = 'none';
+      }
+      
+      function buyCredits(amount) {
+        const creditDisplay = document.getElementById('creditCount');
+        const current = parseInt(creditDisplay.textContent, 10);
+        creditDisplay.textContent = current + amount;
+        closeCreditsPopup();
+        showPopup("Credits Added", `You’ve purchased ${amount} credits.`, true);
+      }</script>
+</body>
+
+</html>
+
