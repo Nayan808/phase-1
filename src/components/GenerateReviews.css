@@ -1,0 +1,156 @@
+.generate-reviews-section {
+  padding: 4rem 0;
+  background-color: var(--background-color);
+}
+
+.generate-reviews-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.generate-reviews-header h2 {
+  font-size: 2.5rem;
+  color: var(--primary-text);
+  margin-bottom: 1rem;
+}
+
+.generate-reviews-header p {
+  font-size: 1.1rem;
+  color: var(--secondary-text);
+}
+
+.generate-reviews-container {
+  max-width: 800px;
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 768px) {
+  .generate-reviews-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.review-form {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary-text);
+  font-weight: 500;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+}
+
+.generate-button {
+  width: 100%;
+  padding: 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.generate-button:hover {
+  background-color: var(--primary-color-dark);
+}
+
+.generate-button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.generated-review {
+  background: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.generated-review h3 {
+  color: var(--primary-text);
+  margin-bottom: 1rem;
+}
+
+.review-content {
+  background-color: #f8f9fa;
+  padding: 1.5rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.review-content p {
+  color: var(--primary-text);
+  line-height: 1.6;
+  margin: 0;
+}
+
+.review-actions {
+  display: flex;
+  gap: 1rem;
+}
+
+.copy-button,
+.regenerate-button {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: background-color 0.3s ease;
+}
+
+.copy-button {
+  background-color: #e9ecef;
+  color: var(--primary-text);
+}
+
+.regenerate-button {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.copy-button:hover {
+  background-color: #dee2e6;
+}
+
+.regenerate-button:hover {
+  background-color: var(--primary-color-dark);
+} 
